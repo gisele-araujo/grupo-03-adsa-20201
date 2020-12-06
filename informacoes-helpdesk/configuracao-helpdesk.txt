@@ -1,0 +1,23 @@
+Ferramenta de HelpDesk:
+-AuvoDesk;
+
+Passo a Passo:
+1 - Criar Cliente + Contato do cliente;
+
+2- Configurações -> Pedidos de solicitação
+
+-----------------------------------------------------------------------------------------
+
+AuvoDesk (usuários):
+
+- Email: bandtec
+
+-Senha: proeagle123
+------------------------------------------------------------------------------------------
+Adaias (Cliente):
+
+E-mail: bandtec
+Senha: 123456789
+-------------------------------------------------------------------------------------------
+E-mail de acesso:
+proeaglesupport.auvo.com.br

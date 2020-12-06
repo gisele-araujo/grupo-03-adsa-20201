@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Eagle - Dashboard</title>
+    <link rel="shortcut icon" href="img/#new1.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/perfil.css">
+    <link rel="stylesheet" href="css/relatorio.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/helpdesk.css">
+    <link rel="stylesheet" href="css/menu.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="js/Chart.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="funcoes.js"></script>
+    <script src="./js/graficoMemoria.js"></script>
+    <script src="./js/graficoCpu.js"></script>
+    <script src="./js/graficoDisco.js"></script>
+    <script src="./js/donutDISC.js"></script>
+    <script src="./js/donutCPU.js"></script>
+    <script src="./js/donutMEM.js"></script>
+
+    <style>
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+        .flex-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .page-dashboard {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .dash-section1 {
+            width: 30%;
+            height: 91vh;
+            padding-top: 9vh;
+            background-color: #002069;
+        }
+
+        .dash-section2 {
+            width: 70%;
+            height: 100vh;
+            background-color: #fff;
+            flex-direction: column;
+        }
+
+        .dash-component {
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            width: 70%;
+            height: 20vh;
+            background-color: #fff;
+            border-radius: 5px;
+            color: #073eac;
+            transition: all 0.5s;
+        }
+
+        .dash-component span {
+            position: absolute;
+            padding: 4px;
+            display: block;
+            width: 100%;
+            background-color: #073eac66;
+            bottom: 0;
+        }
+
+        #selecionado {
+            width: 80%;
+            height: 45vh;
+            padding: 5%;
+            padding-bottom: 0;
+            border: 2px solid #dfdfdf;
+            border-radius: 5px 5px 0px 0px;
+        }
+
+        .dash-info {
+            height: 15vh;
+            width: 90%;
+            border: 2px solid #dfdfdf;
+            border-radius: 0px 0px 5px 5px;
+        }
+
+        .dash-tittle {
+            color: #073eac;
+            width: 90%;
+            padding: 10px;
+            text-align: end;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="menu-principal">
+        <div class="menu-content">
+            <span>Olá, <span id="b_nome2">Usuário</span></span>
+        </div>
+        <a href="../Chat/chat.js-ativo/index.html" target="_blank">
+            <div class="options-menu flex">
+                <i class="fas fa-comments"></i>
+            </div>
+        </a>
+        <div class="options-menu flex">
+            <i class="fas fa-bell"></i>
+        </div>
+        <div class="options-menu flex">
+            <i class="fas fa-cog"></i>
+        </div>
+        <div class="menu-content">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Sair</span>
+        </div>
+    </header>
+
+    <nav id="menu" onmouseover="abrir()">
+
+        <div class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="contour-icon">
+            <i class="fas fa-home"></i>
+            <a class="funcao">Início</a>
+        </div>
+
+        <div class="contour-icon">
+            <i class="fas fa-chart-area"></i>
+            <a href="#dashboardPag" class="funcao">Dashboard</a>
+        </div>
+
+        <div class="contour-icon">
+            <i class="fas fa-copy"></i>
+            <a href="#relatoriosPag" class="funcao">Relatórios</a>
+        </div>
+        <div class="contour-icon">
+            <i class="fas fa-user"></i>
+            <a href="#userPag" class="funcao">Perfil</a>
+        </div>
+        <div class="contour-icon">
+            <i class="fas fa-headset"></i>
+            <a href="#helpPag" class="funcao">Suporte</a>
+        </div>
+    </nav>
+
+    <section id="principal" onmouseover="fechar()">
+
+        <!-- Dashboard -->
+        <div class="page-dashboard flex-center" id="dashboardPag">
+            <div class="dash-section1 flex-between">
+                <div class="dash-component">
+                    <div id="grafico1">
+                        <canvas id="roscaDISCO" height="110%"></canvas>
+                    </div>
+                    <span>Disco</span>
+                </div>
+                <div class="dash-component">
+                    <div id="grafico2">
+                        <canvas id="roscaCPU" height="110%"></canvas>
+                    </div>
+                    <span>CPU</span>
+                </div>
+                <div class="dash-component">
+                    <div id="grafico3">
+                        <canvas id="roscaMEM" height="110%"></canvas>
+                    </div>
+                    <span>Memória</span>
+                </div>
+            </div>
+
+            <div class="dash-section2 flex-center">
+                <h2 class="dash-tittle">Painel de Controle</h2>
+                <div id="selecionado"></div>
+                <div class="dash-info">
+                    <!-- Informações, alertas, aqui!-->
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- <div id="dashboardPag" class="dash">
+
+            <div class="boxes">
+                <div class="esquerdo">
+                    <div class="boxPerfil">
+                        <div class="perfil">
+                            <div class="icone"></div>
+                        </div>
+                        <div class="texto">
+                            <div>
+                                <select name="" id="">
+                                    <option value="">Selecionar máquina</option>
+                                    <option value="">Máquina 1</option>
+                                    <option value="">Máquina 2</option>
+                                    <option value="">Máquina 3</option>
+                                </select>
+                            </div>
+                            <div>
+                                <b>INFORMAÇÕES DA MÁQUINA:</b>
+                                <br>
+                                <br>
+                                <p>Intel(R) Core(TM)2 Duo CPU E7400</p>
+                                <br>
+                                <p>Memória RAM: 8 GB</p>
+                                <br>
+                                <p>Núcleo do CPU: 4</p>
+                                <br>
+                                <p>Velocidade do CPU: 2.80GHz</p>
+                            </div>
+                            <div>
+                                <button id="randomize" onclick="revela()" class="verGraficos">Monitorar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="direito">
+                    <div class="caixas">
+                        <div class="caixas-flex">
+
+
+                        </div>
+                        <div class="caixas-flex">
+                            <div class="disco">
+                                <canvas id="chartMemoria" height="110%" class="donut"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div> -->
+
+        <!-- Relatórios -->
+
+        <div id="relatoriosPag" class="relatorio">
+            <div class="container-relatorios">
+                <div class="relatorios">
+                    <h1>Relatórios</h1>
+                    <hr>
+                </div>
+                <div class="flex">
+                    <div>
+                        <img src="img/relatorios-img.png" alt="">
+                    </div>
+                    <div class="box-relatorio">
+                        <div class="container-relatorios">
+                            <h2 class="titulo-relatorio">Média por Mês</h2>
+                            <select name="" id="comboMaquina">
+                                <option value="">Selecionar Maquina</option>
+                                <option value="1">Maquina 1</option>
+                                <option value="1">Maquina 2</option>
+                                <option value="1">Maquina 3</option>
+                            </select>
+                            <select name="" id="comboMes">
+                                <option value="">Selecionar mês</option>
+                                <option value="1">Janeiro</option>
+                                <option value="2">Fevereiro</option>
+                                <option value="3">Março</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Maio</option>
+                                <option value="6">Junho</option>
+                                <option value="7">Julho</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Setembro</option>
+                                <option value="10">Outubro</option>
+                                <option value="11">Novembro</option>
+                                <option value="12">Dezembro</option>
+                            </select>
+                            <div class="img-card-relatorio">
+                                <img class="b" src="img/relatorios-icone.png" id="img-mid">
+                            </div>
+                            <button id="btnRelatorio" class="btn-relatorio">Gerar Relatório</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Perfil -->
+
+        <div class="profile" id="userPag">
+            <div class="flex-center">
+                <div class="box-profile">
+                    <div class="flex-center">
+                        <div class="option-profile flex-center">
+                            <span>Meu Perfil</span>
+                        </div>
+                        <div class="option-profile flex-center disabled">
+                            <span>Minhas Máquinas</span>
+                        </div>
+                        <div class="option-profile flex-center disabled">
+                            <span>Meus Funcionários</span>
+                        </div>
+                    </div>
+                    <div class="flex-center" style="height: 50vh;">
+                        <div class="box-content flex-center">
+                            <img id="imagem_perfil" class="imagem" src="img/user.png">
+                        </div>
+                        <div class="box-content">
+                            <div class="box-text">
+                                <div class="box-element">
+                                    <span>Nome: </span>
+                                    <b id="b_nome"></b>
+                                </div>
+                                <div class="box-element">
+                                    <span>Email: </span>
+                                    <b id="b_usuario"></b>
+                                </div>
+                                <div class="box-element">
+                                    <span>Telefone: </span>
+                                    <b id="b_telefone"></b>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn-profile">Editar informações</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Helpdesk -->
+
+        <div id="helpPag" class="helpdesk">
+            <div class="flex">
+                <div class="box-helpdesk">
+                    <div class="img-card-auvo flex">
+                        <img class="b" src="img/auvo.png" id="img-mid">
+                    </div>
+                    <div class="box-texto flex">
+                        <div class="texto-helpdesk">
+                            <h2>Helpdesk para controle de atendimento ao cliente</h2>
+                            <p>Gerencie seu estoque e garanta mais segurança na gestão da manutenção.</p>
+                            <p>Problemas ou incidentes? A gente resolve!</p>
+                            <button class="btn-helpdesk">Abrir Chamado</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-img">
+                    <div class="box-content-img">
+                        <div class="ajuda-helpdesk flex">
+                            <h4><i class="fas fa-question-circle"></i> Ajuda</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="js/chart.js"></script>
+</body>
+
+</html>
+
+<script>
+
+    // MENU LATERAL 
+    function abrir() {
+        document.getElementById("menu").classList.add("menuOpened");
+        document.getElementById("principal").style.width = "80%";
+
+
+        var variavel = document.querySelectorAll('.funcao');
+        for (let i = 0; i < variavel.length; i++) {
+            variavel[i].style.display = "block";
+        }
+
+    }
+
+    function fechar() {
+        document.getElementById("menu").classList.remove("menuOpened");
+        document.getElementById("principal").style.width = "94%";
+        var variavel = document.querySelectorAll('.funcao');
+
+
+        for (let i = 0; i < variavel.length; i++) {
+            variavel[i].style.display = "none";
+        }
+
+    }
+
+
+
+</script>
+
+<!-- Validações de login -->
+<script>
+
+    function logoff() {
+        finalizar_sessao();
+        sessionStorage.clear();
+        redirecionar_login();
+        window.location.href = 'index-proeagle.html';
+    }
+
+    function verificar_autenticacao() {
+        login_usuario = sessionStorage.login_usuario_meuapp;
+        nome_usuario = sessionStorage.nome_usuario_meuapp;
+        nome2_usuario = sessionStorage.nome2_usuario_meuapp;
+        telefone_usuario = sessionStorage.telefone_usuario_meuapp;
+        foto_usuario = sessionStorage.foto_usuario_meuapp;
+
+        if (login_usuario == undefined) {
+            redirecionar_login();
+
+        } else {
+            b_usuario.innerHTML = login_usuario;
+            b_nome.innerHTML = nome_usuario;
+            b_nome2.innerHTML = nome_usuario;
+            b_telefone.innerHTML = telefone_usuario;
+            imagem_perfil.src = foto_usuario;
+            validar_sessao();
+        }
+    }
+
+    verificar_autenticacao();
+</script>
+
+<script>
+    // dashboard
+
+    const elementos = document.querySelectorAll('.dash-component');
+    const graficoOn = document.querySelector('#selecionado');
+    const graficoDisco = document.querySelector('#grafico1');
+    const graficoCpu = document.querySelector('#grafico2');
+    const graficoMemoria = document.querySelector('#grafico3');
+
+     graficoDisco.addEventListener('click', function() {
+         graficoOn.innerHTML = `<canvas id="chartDisco" height="110%" class="donut"></canvas>`
+     });
+
+     graficoCpu.addEventListener('click', function() {
+         graficoOn.innerHTML = `<canvas id="chartCpu" height="110%" class="donut"></canvas>`;
+     });
+
+     graficoMemoria.addEventListener('click', function() {
+         graficoOn.innerHTML = `<canvas id="chartMemoria" height="110%" class="donut"></canvas>`;
+     })
+</script>

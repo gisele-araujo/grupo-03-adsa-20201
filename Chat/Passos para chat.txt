@@ -1,0 +1,12 @@
+Usar o Chat
+
+1 - Windows + R
+2 - cmd
+3 - caminho pra pasta que o chat estiver
+4 - node EagleServer.js
+
+if(aparecer "Serviço rodando"){
+     entrar no browser e acessar localhost:3000
+}else{
+     tenta dinovo kkkk
+}

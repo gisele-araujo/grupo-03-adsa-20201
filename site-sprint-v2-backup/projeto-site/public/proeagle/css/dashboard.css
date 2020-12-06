@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+*{
+    padding: 0;
+    margin: 0;
+}
+a{
+    text-decoration: none;
+}
+.dash{
+    width: 100%;
+    height: 100vh;
+    background-color: #002069;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.dash .boxes{
+    width: 100%;
+}
+.dash .boxes .esquerdo{
+    float: left;
+    height: 100vh;
+    width: 30%;
+}
+.dash .boxes .esquerdo .boxPerfil{
+    position: relative;
+    width: 88%;
+    height: 80vh;
+    margin-top: 14vh;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: inset 0 0 0.5em rgba(0, 0, 0, 0.192);
+    transition-property: transform, display;
+    transition: 0.2s;
+}
+.dash .boxes .esquerdo .boxPerfil .perfil{
+    background: black;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.dash .boxes .boxPerfil .icone{
+    width: 100%;
+    height: 100%;
+    background: url(https://png.pngtree.com/png-vector/20190804/ourlarge/pngtree-computer-icon-png-image_1657667.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.dash .boxes .boxPerfil .texto{
+    position: relative;
+    text-align: center;
+    top: 30px;
+    height: 55%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.dash .boxes .boxPerfil .texto b{
+    font-size: 13px;
+}
+.dash .boxes .boxPerfil .texto p{
+    font-size: 13px;
+}
+.dash .boxes .boxPerfil .texto .verGraficos{
+    position: relative;
+    width: 100%;
+    height: 40px;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    background: #0077df;
+    border-radius: 30px;
+    font-weight: bold;
+    color: #FFF;
+    transition: 0.5s;
+}
+.dash .boxes .boxPerfil .texto .verGraficos:hover{
+    cursor: pointer;
+    background-color:#28CC69;
+    transform: scale(0.975);
+}
+.dash .boxes .boxPerfil .texto .verGraficos:active{
+    background-color: white;
+}
+.dash .boxes .direito{
+    float: right;
+    height: 100vh;
+    width: 70%;
+}
+.dash .boxes .direito .caixas{
+    position: relative;
+    top: 14vh;
+    right: 2%;
+    display: flex;
+    flex-direction: column;
+}
+.dash .boxes .direito .caixas .caixas-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dash .box{
+    float: right;
+    display: inline-block;
+    width: 372px;
+    height: 180px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: inset 0 0 0.5em rgba(0, 0, 0, 0.192);
+    margin: 10px;
+    transition-property: transform, display;
+    transition: 0.2s;
+}
+.dash .boxes .disco{
+    float: right;
+    width: 765px;
+    height: 280px;
+    margin-top: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: inset 0 0 0.5em rgba(0, 0, 0, 0.192);
+    transition-property: transform, display;
+    transition: 0.2s;
+}
+.dash .boxes .black{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 0.5em rgba(0, 0, 0, 0.863);
+    background-color: rgba(255, 255, 255, 0.541);
+}
+.dash .boxes .black .logo{
+    width: 100%;
+    height: 100%;
+    background: url(https://www.clubecuritibano.com.br/wp-content/uploads/2020/01/003.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.dash .box .donut{
+    position: relative;
+    top: 15px;
+}
+/* .dash .boxes .box:hover{
+    cursor: pointer;
+    transform: scale(1.01);
+    transition-property: 1s;
+} */
