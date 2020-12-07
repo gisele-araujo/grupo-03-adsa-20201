@@ -1123,8 +1123,8 @@
 
     }
 
-    function enviarMensagem() {
-        e.preventDefault();
+    function enviarMensagem(event) {
+        event.preventDefault();
         var chat = document.getElementById("chat");
         chat.scrollTop = chat.scrollHeight;
         showlog = false;
